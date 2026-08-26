@@ -2,7 +2,7 @@
 // CHANGE BETWEEN PAGES
 // =========================================
 
-function showPage(pageId, addToHistory = true) {
+function showPage(pageId) {
 
     const pages = document.querySelectorAll(".page");
 
@@ -12,19 +12,18 @@ function showPage(pageId, addToHistory = true) {
 
     document.getElementById(pageId).classList.add("active");
 
-    if (addToHistory) {
-        history.pushState(
-            { page: pageId },
-            "",
-            "#" + pageId
-        );
-    }
-
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 }
+
+function goBack(pageId) {
+
+    showPage(pageId);
+
+}
+    
 window.addEventListener("popstate", function () {
 
     const pageId =
