@@ -2,7 +2,7 @@
 // CHANGE BETWEEN PAGES
 // =========================================
 
-function showPage(pageId) {
+function showPage(pageId, addToHistory = true) {
 
     const pages = document.querySelectorAll(".page");
 
@@ -12,11 +12,35 @@ function showPage(pageId) {
 
     document.getElementById(pageId).classList.add("active");
 
+    if (addToHistory) {
+        history.pushState(
+            { page: pageId },
+            "",
+            "#" + pageId
+        );
+    }
+
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 }
+window.addEventListener("popstate", function () {
+
+    const pageId =
+        window.location.hash.substring(1);
+
+    if (pageId) {
+
+        showPage(pageId, false);
+
+    } else {
+
+        showPage("welcomePage", false);
+
+    }
+
+});
 
 
 // =========================================
